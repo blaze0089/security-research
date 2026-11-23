@@ -19,7 +19,7 @@ When `accum_nbits` is already 63, `nbits` is zero and `buf` does not move. `fse_
 
 ## Reproduction
 
-A 147-byte `bvx2` stream with the LMD payload ending at the end of the input triggers an AddressSanitizer report:
+A 147-byte `bvx2` stream with the LMD payload ending at the end of the input triggers an AddressSanitizer report. The reproducer is [reproducer.bvx2](reproducer.bvx2).
 
 ```
 ERROR: AddressSanitizer: heap-buffer-overflow
