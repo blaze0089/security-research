@@ -1,7 +1,7 @@
 # lzfse: one byte past the FSE payload
 
 **Component:** `src/lzfse_fse.h`
-**Fix:** [lzfse/lzfse#66](https://github.com/lzfse/lzfse/pull/66)
+**Fix:** [lzfse/lzfse#66](https://github.com/lzfse/lzfse/pull/66), [NationalSecurityAgency/ghidra#10189](https://github.com/NationalSecurityAgency/ghidra/pull/10189)
 **Impact:** One-byte out-of-bounds read at the end of the input
 
 ## Background
@@ -32,7 +32,13 @@ The overread byte is masked out when `nbits == 0`, so the practical impact is li
 
 ## Fix
 
-Guard the load with `if (nbits > 0)`, matching the 32-bit implementation.
+Return early when `nbits == 0`, matching the 32-bit implementation:
+
+```c
+fse_bit_count nbits = (63 - s->accum_nbits) & -8;
+if (nbits == 0)
+  return 0;
+```
 
 ## Verification
 
@@ -42,4 +48,4 @@ Guard the load with `if (nbits > 0)`, matching the 32-bit implementation.
 
 ## Notes
 
-Ghidra vendors this decoder and invokes it through its LZFSE CLI wrapper. The Ghidra-side fix is [NationalSecurityAgency/ghidra#10189](https://github.com/NationalSecurityAgency/ghidra/pull/10189).
+Ghidra vendors this decoder and invokes it through its LZFSE CLI wrapper. The Ghidra-side fix was merged as [NationalSecurityAgency/ghidra#10189](https://github.com/NationalSecurityAgency/ghidra/pull/10189) on 2026-11-24.

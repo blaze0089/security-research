@@ -8,6 +8,7 @@ Each entry below has a minimal reproducer, a root-cause writeup, and a link to t
 
 | Project | Issue | Impact | Fix |
 | --- | --- | --- | --- |
+| Ghidra | LZFSE FSE input flush performs an 8-byte load after the last input byte | One byte past the input is read; crashes under ASan, no data disclosure | [#10189](https://github.com/NationalSecurityAgency/ghidra/pull/10189) |
 | Ghidra | ISF connection handler busy-loops after a client disconnect | A connected client that closes the socket leaves a handler thread consuming a CPU core | [#10185](https://github.com/NationalSecurityAgency/ghidra/pull/10185) |
 | Ghidra | Version Tracking comment encoder does not escape backslashes | Windows paths are corrupted when comments are saved and restored; a trailing backslash throws | [#10191](https://github.com/NationalSecurityAgency/ghidra/pull/10191) |
 | Ghidra | Swift context descriptor kind can be null | A malformed or newer Swift binary throws a `NullPointerException` and aborts metadata parsing | [#10167](https://github.com/NationalSecurityAgency/ghidra/pull/10167) |
